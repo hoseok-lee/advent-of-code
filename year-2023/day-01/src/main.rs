@@ -1,9 +1,7 @@
-// extern crate regex;
 extern crate aho_corasick;
 
 use std::fs::File;
 use std::io::{self, prelude::*, BufReader};
-// use regex::{Captures, Regex};
 use aho_corasick::{AhoCorasick};
 
 
