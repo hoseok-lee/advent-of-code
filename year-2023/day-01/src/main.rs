@@ -1,24 +1,18 @@
 extern crate aho_corasick;
 
-use std::fs::File;
-use std::io::{self, prelude::*, BufReader};
 use aho_corasick::{AhoCorasick};
 
 
-fn main() -> io::Result<()> {
+fn main() {
 
-    let file_path = "/home/hoseoklee/Documents/Programming/advent-of-code/year-2023/day-01/src/calibration_values.txt";
-    let file = File::open(&file_path).expect("File read error");
-    let reader = BufReader::new(file);
+    let input: &str = include_str!("./calibration_values.txt");
 
-    let result: u32 = reader
+    let result: u32 = input
         .lines()
-        .map(|line| parse_digit(&line.unwrap()))
+        .map(|line| parse_digit(&line))
         .sum();
 
     println!("{}", result);
-
-    Ok(())
 }
 
 fn parse_digit(haystack: &str) -> u32 {
@@ -49,7 +43,8 @@ fn parse_digit(haystack: &str) -> u32 {
     ];
 
     let ac = AhoCorasick::new(patterns).unwrap();
-    let mut matches: Vec<u32> = ac
+
+    let matches: Vec<u32> = ac
         .find_overlapping_iter(haystack)
         .map(
             |mat| {
